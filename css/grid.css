@@ -1,0 +1,51 @@
+.grid-container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-auto-flow: column;
+    grid-template-columns: 20% 40% 40%;
+    grid-template-rows: 8% 8% 76% 8%;
+    grid-template-areas:
+    "OrdersInfo PageHeader PageHeader"
+    "Orders CoordInfo1 CoordInfo2"
+    "Orders Canvas1 Canvas2"
+    "PageFooter PageFooter PageFooter";
+}
+
+.grid-item1 {
+    grid-area: OrdersInfo;
+    background: gray;
+}
+
+.grid-item2 {
+    grid-area: PageHeader;
+    background: gray;
+}
+
+.grid-item3 {
+    grid-area: Orders;
+    background: #79DAE8;
+}
+
+.grid-item4 {
+    grid-area: CoordInfo1;
+}
+
+.grid-item5 {
+    grid-area: CoordInfo2;
+}
+
+.grid-item6 {
+    grid-area: Canvas1;
+}
+
+.grid-item7 {
+    grid-area: Canvas2;
+}
+
+.grid-item8 {
+    grid-area: PageFooter;
+    background: gray;
+}

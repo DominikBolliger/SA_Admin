@@ -1,0 +1,17 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.4em;
+    color: #5C5B5B;
+    text-align: center;
+}
+
+.canvasCoord {
+    border: 1px solid black;
+    /*height: 90%;*/
+    /*width: 90%;*/
+    margin-top: 2%;
+}
+
+.grid-div {
+    /*border: 1px solid black;*/
+}
