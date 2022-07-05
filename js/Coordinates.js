@@ -23,7 +23,7 @@ class xyCoordinateSystem{
         this.ctx.stroke();
     }
 
-    drawGrid(){
+    drawGrid(createObjects){
         this.ctx.strokeStyle = '#121212';
         this.ctx.lineWidth = 1;
         this.ctx.beginPath();
@@ -34,8 +34,10 @@ class xyCoordinateSystem{
                 let gridX = i+1;
                 let gridY = this.tiles - j;
                 let size = this.tileSize;
-                let gridRect = new GridRect(posX, posY, gridX, gridY, size);
-                this.gridRectList.push(gridRect);
+                if (createObjects){
+                    let gridRect = new GridRect(posX, posY, gridX, gridY, size);
+                    this.gridRectList.push(gridRect);
+                }
                 this.ctx.rect(posX, posY, size, size);
             }
         }

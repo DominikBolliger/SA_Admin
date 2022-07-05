@@ -1,5 +1,6 @@
 window.onload = function () {
     drawCoordSystem();
+    createOrders();
 }
 
 function drawCoordSystem(){
@@ -18,9 +19,8 @@ function drawCoordSystem(){
     let coordCanv2 = new xyCoordinateSystem(canv2, contextCanv2, divCanv2);
 
 
-    coordCanv1.drawGrid();
-
-    coordCanv2.drawGrid();
+    coordCanv1.drawGrid(true);
+    coordCanv2.drawGrid(true);
 
 
     request.open("GET", "http://rest.sa/getBoxes.php", false);
@@ -46,6 +46,24 @@ function drawCoordSystem(){
             coordCanv2.drawBox(box.posX, box.posZ, box.color);
         }
     });
+
+    coordCanv1.drawGrid(false);
+    coordCanv1.drawFrame();
+    coordCanv2.drawGrid(false);
+    coordCanv2.drawFrame();
+
+}
+
+function createOrders() {
+    let ordersToShow = 10;
+
+    let div = document.getElementById('orders-div');
+    for (let i = 0; i < ordersToShow ; i++) {
+
+        let ordersDiv = document.createElement("div")
+        ordersDiv.setAttribute("class", "orderDiv");
+        div.appendChild(ordersDiv);
+    }
 }
 
 

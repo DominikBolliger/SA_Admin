@@ -21,7 +21,7 @@
         <div class="grid-container">
             <div class="grid-item1 grid-div"><p>Orders</p></div>
             <div class="grid-item2 grid-div"><p>Storage View</p></div>
-            <div class="grid-item3 grid-div"><p>Orders</p></div>
+            <div class="grid-item3 grid-div" id="orders-div"><p>Orders</p></div>
             <div class="grid-item4 grid-div"><p>X-Y</p></div>
             <div class="grid-item5 grid-div"><p>X-Z</p></div>
             <div class="grid-item6 grid-div" id="canvas1Div"><canvas class="canvasCoord" id="canvas1">Your Browser is not able to show Canvas</canvas></div>
