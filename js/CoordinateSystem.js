@@ -1,4 +1,4 @@
-class xyCoordinateSystem{
+class CoordinateSystem{
 
     constructor(canvas, ctx, div) {
         this.canvas = canvas;
@@ -7,8 +7,8 @@ class xyCoordinateSystem{
         this.frameLineWidth = 3;
         this.tileLineWidth = 1;
         this.tiles = 6;
-        this.height = this.canvas.height = div.clientWidth -100;
-        this.width = this.canvas.width = div.clientWidth-100;
+        this.height = this.canvas.height = div.clientWidth - 200;
+        this.width = this.canvas.width = div.clientWidth - 200;
         this.strokeLenght = this.height - this.margin * 2;
         this.tileSize = this.strokeLenght / this.tiles;
         this.ctx.font = "45px Arial";
@@ -53,12 +53,7 @@ class xyCoordinateSystem{
         });
     }
 
-    drawCraneHead(posX, posY){
-        this.ctx.lineWidth = 1
-        this.ctx.fillStyle = '#FF0000';
-        this.ctx.beginPath();
-        this.ctx.rect(this.margin+this.tileSize*posX,this.strokeLenght - this.tileSize*posY, this.tileSize, this.tileSize );
-        this.ctx.stroke();
-        this.ctx.fill();
+    drawCraneHead(posX, posY, crane){
+        this.ctx.drawImage(crane.image, this.margin, this.margin + this.strokeLenght -this.tileSize, this.tileSize, this.tileSize);
     }
 }

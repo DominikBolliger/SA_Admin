@@ -11,17 +11,19 @@ function drawCoordSystem(){
     let canv1 = document.getElementById("canvas1");
     let divCanv1 = document.getElementById("canvas1Div")
     let contextCanv1 = canv1.getContext("2d");
-    let coordCanv1 = new xyCoordinateSystem(canv1, contextCanv1, divCanv1);
+    let coordCanv1 = new CoordinateSystem(canv1, contextCanv1, divCanv1);
+    let craneHead = new CraneHead('./images/crane_head_top.png');
+    let craneHeadTop = new CraneHead('./images/crane_head.png')
 
     let canv2 = document.getElementById("canvas2");
     let divCanv2 = document.getElementById("canvas2Div")
     let contextCanv2 = canv2.getContext("2d");
-    let coordCanv2 = new xyCoordinateSystem(canv2, contextCanv2, divCanv2);
-
+    let coordCanv2 = new CoordinateSystem(canv2, contextCanv2, divCanv2);
 
     coordCanv1.drawGrid(true);
     coordCanv2.drawGrid(true);
-
+    coordCanv1.drawCraneHead(1,1, craneHead);
+    coordCanv2.drawCraneHead(1,1, craneHeadTop);
 
     request.open("GET", "http://rest.sa/getBoxes.php", false);
     request.send();
@@ -51,7 +53,6 @@ function drawCoordSystem(){
     coordCanv1.drawFrame();
     coordCanv2.drawGrid(false);
     coordCanv2.drawFrame();
-
 }
 
 function createOrders() {

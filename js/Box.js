@@ -29,4 +29,13 @@ class Box{
                 break;
         }
     }
+
+    drawBox(boxCoord1, boxCoord2, boxColor){
+        this.ctx.fillStyle = boxColor;
+        this.gridRectList.forEach((rect) =>{
+            if (rect.gridX == boxCoord1 && rect.gridY == boxCoord2){
+                this.ctx.fillRect(rect.posX, rect.posY, rect.size, rect.size);
+            }
+        });
+    }
 }
