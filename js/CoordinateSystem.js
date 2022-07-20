@@ -7,8 +7,8 @@ class CoordinateSystem{
         this.frameLineWidth = 3;
         this.tileLineWidth = 1;
         this.tiles = 6;
-        this.height = this.canvas.height = div.clientWidth - 200;
-        this.width = this.canvas.width = div.clientWidth - 200;
+        this.height = this.canvas.height = div.clientWidth - 100;
+        this.width = this.canvas.width = div.clientWidth - 100;
         this.strokeLenght = this.height - this.margin * 2;
         this.tileSize = this.strokeLenght / this.tiles;
         this.ctx.font = "45px Arial";
@@ -56,4 +56,9 @@ class CoordinateSystem{
     drawCraneHead(posX, posY, craneImage){
         this.ctx.drawImage(craneImage, this.margin, this.margin + this.strokeLenght -this.tileSize, this.tileSize, this.tileSize);
     }
+
+    clearCanv(){
+        this.ctx.clearRect(0, 0, this.width, this.height);
+    }
+
 }

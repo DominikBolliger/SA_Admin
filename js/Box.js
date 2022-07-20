@@ -1,11 +1,12 @@
 class Box{
 
-    constructor(boxId, posX, posY, posZ, colorId) {
+    constructor(boxId, posX, posY, posZ, colorId, orderId) {
         this.boxId = boxId
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
         this.colorId = colorId;
+        this.orderId = orderId;
         this.color = "";
         this.setcolor();
     }

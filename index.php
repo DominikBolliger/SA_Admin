@@ -7,6 +7,7 @@
         <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/CoordinateSystem.js"></script>
         <script type="text/javascript" src="js/Box.js"></script>
+        <script type="text/javascript" src="js/Order.js"></script>
         <script type="text/javascript" src="js/GridRect.js"></script>
         <script type="text/javascript" src="js/CraneHead.js"></script>
         <link rel="stylesheet" type="text/css" href="css/modern-normalize.css">
