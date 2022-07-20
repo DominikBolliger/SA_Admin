@@ -53,7 +53,7 @@ class CoordinateSystem{
         });
     }
 
-    drawCraneHead(posX, posY, crane){
-        this.ctx.drawImage(crane.image, this.margin, this.margin + this.strokeLenght -this.tileSize, this.tileSize, this.tileSize);
+    drawCraneHead(posX, posY, craneImage){
+        this.ctx.drawImage(craneImage, this.margin, this.margin + this.strokeLenght -this.tileSize, this.tileSize, this.tileSize);
     }
 }

@@ -5,4 +5,10 @@ class CraneHead {
         this.image = new Image();
         this.image.src = imagePath;
     }
+
+    moveCraneHead(xChange, yChange){
+        this.posX += xChange;
+        this.posY += yChange;
+    }
+
 }

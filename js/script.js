@@ -1,6 +1,16 @@
 window.onload = function () {
     drawCoordSystem();
     createOrders();
+    run();
+}
+
+let fps = 10;
+
+function run(){
+    drawCoordSystem();
+    setTimeout(function(){
+        requestAnimationFrame(run)
+    }, 1000 /fps )
 }
 
 function drawCoordSystem(){
@@ -22,8 +32,8 @@ function drawCoordSystem(){
 
     coordCanv1.drawGrid(true);
     coordCanv2.drawGrid(true);
-    coordCanv1.drawCraneHead(1,1, craneHead);
-    coordCanv2.drawCraneHead(1,1, craneHeadTop);
+    coordCanv1.drawCraneHead(craneHead.posX,craneHead.posY, craneHead.image);
+    coordCanv2.drawCraneHead(craneHeadTop.posX,craneHeadTop.posY, craneHeadTop.image);
 
     request.open("GET", "http://rest.sa/getBoxes.php", false);
     request.send();
@@ -36,7 +46,7 @@ function drawCoordSystem(){
         }
     }
     pos.forEach ((object) => {
-        let box = new Box(object.box_id, object.box_pos_x, object.box_pos_y, object.box_pos_z, object.fk_box_type_id)
+        let box = new Box(object.box_id, object.box_pos_x, object.box_pos_y, object.box_pos_z, object.article_id)
         boxList.push(box)
     });
 

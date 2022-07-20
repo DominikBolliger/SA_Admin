@@ -1,4 +1,6 @@
 class Order {
-    constructor() {
+    constructor(id) {
+        this.id = id;
+        this.date = date;
     }
 }
