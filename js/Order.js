@@ -15,8 +15,10 @@ class Order {
             ordersDiv.setAttribute("class", "orderDiv");
             ordersDiv.addEventListener('click', function (){
                 if(!isRunning) {
+                    orderNumber = orderList[i].orderId;
                     boxes = getRestData("http://rest.sa/getBoxes.php?limit=" + orderList[i].orderId)
                     boxList = Box.createBoxes(boxes);
+                    boxesToDeliver = Box.getBoxesToDeliver();
                     craneHead.resetCraneHeadToStart();
                     craneHeadTop.resetCraneHeadToStart();
                     run();

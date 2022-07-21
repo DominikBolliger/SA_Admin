@@ -9,21 +9,13 @@ class Box{
         this.orderId = orderId;
         this.color = "";
         this.setcolor();
-    }
-
-    static createBoxes(boxes){
-        boxList = [];
-        boxes.forEach ((object) => {
-            let box = new Box(object.box_id, object.box_pos_x, object.box_pos_y, object.box_pos_z, object.article_id, object.order_id);
-            boxList.push(box);
-        });
-        return boxList
+        this.isDelivered = false;
     }
 
     drawBox(boxCoord1, boxCoord2, gridList, ctx){
         ctx.fillStyle = this.color;
         gridList.forEach((rect) =>{
-            if (rect.gridX == boxCoord1 && rect.gridY == boxCoord2){
+            if (rect.gridX === boxCoord1 && rect.gridY === boxCoord2){
                 ctx.fillRect(rect.posX, rect.posY, rect.size, rect.size);
             }
         });
@@ -48,4 +40,27 @@ class Box{
                 break;
         }
     }
+
+    static createBoxes(boxes){
+        boxList = [];
+        boxes.forEach ((object) => {
+            let box = new Box(object.box_id, object.box_pos_x, object.box_pos_y, object.box_pos_z, object.article_id, object.order_id);
+            boxList.push(box);
+        });
+        return boxList
+    }
+
+    static getBoxesToDeliver(){
+        let deliverList = []
+        boxList.forEach((box) => {
+            if (box.orderId === orderNumber){
+                deliverList.push(box);
+            }
+        });
+        deliverList.forEach((box) => {
+            console.log(box.boxId + " " + box.orderId)
+        });
+        return deliverList;
+    }
+
 }

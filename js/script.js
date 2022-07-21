@@ -14,8 +14,9 @@ let boxList;
 let orderList;
 let boxes;
 let orders;
-let ordersToShow;
 let isRunning;
+let orderNumber;
+let boxesToDeliver;
 
 window.onload = function () {
     init()
@@ -24,7 +25,7 @@ window.onload = function () {
     Order.createOrders(orders);
 }
 
-function init(){
+function init() {
 
     canv1 = document.getElementById("canvas1");
     canv2 = document.getElementById("canvas2");
@@ -34,30 +35,30 @@ function init(){
     contextCanv2 = canv2.getContext("2d");
     coordCanv1 = new CoordinateSystem(canv1, contextCanv1, divCanv1);
     coordCanv2 = new CoordinateSystem(canv2, contextCanv2, divCanv2);
-    craneHeadTop = new CraneHead('./images/crane_head_top.png', coordCanv1.margin, coordCanv1.margin + coordCanv1.strokeLenght -coordCanv1.tileSize, coordCanv1.tileSize, contextCanv1);
-    craneHead = new CraneHead('./images/crane_head.png', coordCanv2.margin, coordCanv2.margin + coordCanv2.strokeLenght -coordCanv2.tileSize, coordCanv2.tileSize, contextCanv2)
+    craneHeadTop = new CraneHead('./images/crane_head_top.png', coordCanv1.margin, coordCanv1.margin + coordCanv1.strokeLenght - coordCanv1.tileSize, coordCanv1.tileSize, contextCanv1);
+    craneHead = new CraneHead('./images/crane_head.png', coordCanv2.margin, coordCanv2.margin + coordCanv2.strokeLenght - coordCanv2.tileSize, coordCanv2.tileSize, contextCanv2)
 
-    fps = 100;
+    fps = 20;
     request = new XMLHttpRequest();
-    ordersToShow = 10;
     boxes = [];
     orders = []
     boxList = [];
-    orderList = []
+    orderList = [];
+    boxesToDeliver = [];
 }
 
-function drawCoordSystem(){
+function drawCoordSystem() {
     coordCanv1.drawFrame();
     coordCanv2.drawFrame();
     coordCanv1.drawGrid(true);
     coordCanv2.drawGrid(true);
 }
 
-function getRestData(url){
+function getRestData(url) {
     let pos = [];
     request.open("GET", url, false);
     request.send();
-    if (request.status === 200 ) {
+    if (request.status === 200) {
         try {
             pos = JSON.parse(request.responseText);
         } catch (e) {
@@ -68,16 +69,12 @@ function getRestData(url){
     return pos;
 }
 
-function draw(){
+function draw() {
     coordCanv1.clearCanv();
     coordCanv2.clearCanv();
     boxList.forEach((box) => {
-        if (box.posZ == 1){
-            box.drawBox(box.posX, box.posY, coordCanv1.gridRectList, contextCanv1)
-        }
-        if (box.posY == 1){
-            box.drawBox(box.posX, box.posZ, coordCanv2.gridRectList, contextCanv2)
-        }
+        box.drawBox(box.posX, box.posY, coordCanv1.gridRectList, contextCanv1)
+        box.drawBox(box.posX, box.posZ, coordCanv2.gridRectList, contextCanv2)
     });
     coordCanv1.drawFrame();
     coordCanv2.drawFrame();
@@ -88,15 +85,25 @@ function draw(){
 }
 
 function update() {
-    craneHead.moveCraneHead(1, -1);
-    craneHeadTop.moveCraneHead(1, -1);
+    craneHead.moveCraneHead(1,-1)
+    craneHeadTop.moveCraneHead(1,-1)
+    // boxesToDeliver.every((box) => {
+    //     if (!box.isDelivered){
+    //         if (craneHead.posY < box.posZ){
+    //             craneHead.moveCraneHead(0, 1);
+    //         } else if (craneHead.posX < box.posX){
+    //             craneHead.moveCraneHead(1, 0);
+    //         }
+    //         return false;
+    //     }
+    // });
 }
 
-function run(){
+function run() {
     isRunning = true;
     update();
     draw();
-    setTimeout(function(){
+    setTimeout(function () {
         requestAnimationFrame(run);
-    }, 1000 /fps );
+    }, 1000 / fps);
 }
