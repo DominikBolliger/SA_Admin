@@ -15,27 +15,29 @@ let orderList;
 let boxes;
 let orders;
 let ordersToShow;
+let isRunning;
 
 window.onload = function () {
     init()
     drawCoordSystem();
     orders = getRestData("http://rest.sa/getOrders.php");
-    createOrders();
-    run();
+    Order.createOrders(orders);
 }
 
 function init(){
-    fps = 10;
+
     canv1 = document.getElementById("canvas1");
-    divCanv1 = document.getElementById("canvas1Div")
-    contextCanv1 = canv1.getContext("2d");
-    coordCanv1 = new CoordinateSystem(canv1, contextCanv1, divCanv1);
-    craneHead = new CraneHead('./images/crane_head_top.png');
-    craneHeadTop = new CraneHead('./images/crane_head.png')
     canv2 = document.getElementById("canvas2");
+    divCanv1 = document.getElementById("canvas1Div")
     divCanv2 = document.getElementById("canvas2Div")
+    contextCanv1 = canv1.getContext("2d");
     contextCanv2 = canv2.getContext("2d");
+    coordCanv1 = new CoordinateSystem(canv1, contextCanv1, divCanv1);
     coordCanv2 = new CoordinateSystem(canv2, contextCanv2, divCanv2);
+    craneHeadTop = new CraneHead('./images/crane_head_top.png', coordCanv1.margin, coordCanv1.margin + coordCanv1.strokeLenght -coordCanv1.tileSize, coordCanv1.tileSize, contextCanv1);
+    craneHead = new CraneHead('./images/crane_head.png', coordCanv2.margin, coordCanv2.margin + coordCanv2.strokeLenght -coordCanv2.tileSize, coordCanv2.tileSize, contextCanv2)
+
+    fps = 100;
     request = new XMLHttpRequest();
     ordersToShow = 10;
     boxes = [];
@@ -66,52 +68,33 @@ function getRestData(url){
     return pos;
 }
 
-function createBoxes(){
-    boxList = [];
-    boxes.forEach ((object) => {
-        let box = new Box(object.box_id, object.box_pos_x, object.box_pos_y, object.box_pos_z, object.article_id, object.order_id);
-        boxList.push(box);
-    });
-}
-
-function createOrders() {
-    orders.forEach((object) =>{
-        let order = new Order(object.order_id, object.date);
-        orderList.push(order);
-    });
-    let div = document.getElementById('orders-div');
-    for (let i = 0; i < orderList.length ; i++) {
-        let ordersDiv = document.createElement("div");
-        ordersDiv.setAttribute("class", "orderDiv");
-        ordersDiv.addEventListener('click', function (){
-            boxes = getRestData("http://rest.sa/getBoxes.php?limit=" + orderList[i].orderId)
-            createBoxes();
-        });
-        div.appendChild(ordersDiv);
-        ordersDiv.innerHTML += "Order Numer: " + orderList[i].orderId + "<br>" + orderList[i].date;
-    }
-}
-
 function draw(){
     coordCanv1.clearCanv();
     coordCanv2.clearCanv();
     boxList.forEach((box) => {
         if (box.posZ == 1){
-            coordCanv1.drawBox(box.posX, box.posY, box.color);
+            box.drawBox(box.posX, box.posY, coordCanv1.gridRectList, contextCanv1)
         }
         if (box.posY == 1){
-            coordCanv2.drawBox(box.posX, box.posZ, box.color);
+            box.drawBox(box.posX, box.posZ, coordCanv2.gridRectList, contextCanv2)
         }
     });
-    coordCanv1.drawCraneHead(craneHead.posX,craneHead.posY, craneHead.image);
-    coordCanv2.drawCraneHead(craneHeadTop.posX,craneHeadTop.posY, craneHeadTop.image);
     coordCanv1.drawFrame();
     coordCanv2.drawFrame();
     coordCanv1.drawGrid(false);
     coordCanv2.drawGrid(false);
+    craneHead.drawCraneHead();
+    craneHeadTop.drawCraneHead()
+}
+
+function update() {
+    craneHead.moveCraneHead(1, -1);
+    craneHeadTop.moveCraneHead(1, -1);
 }
 
 function run(){
+    isRunning = true;
+    update();
     draw();
     setTimeout(function(){
         requestAnimationFrame(run);

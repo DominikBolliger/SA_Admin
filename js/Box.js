@@ -11,6 +11,24 @@ class Box{
         this.setcolor();
     }
 
+    static createBoxes(boxes){
+        boxList = [];
+        boxes.forEach ((object) => {
+            let box = new Box(object.box_id, object.box_pos_x, object.box_pos_y, object.box_pos_z, object.article_id, object.order_id);
+            boxList.push(box);
+        });
+        return boxList
+    }
+
+    drawBox(boxCoord1, boxCoord2, gridList, ctx){
+        ctx.fillStyle = this.color;
+        gridList.forEach((rect) =>{
+            if (rect.gridX == boxCoord1 && rect.gridY == boxCoord2){
+                ctx.fillRect(rect.posX, rect.posY, rect.size, rect.size);
+            }
+        });
+    }
+
     setcolor(){
         switch (this.colorId){
             case 1:
@@ -23,20 +41,11 @@ class Box{
                 this.color = '#1e14db';
                 break;
             case 4:
-                this.color = '#000000';
+                this.color = '#FC6A03';
                 break;
             case 5:
                 this.color = '#fcdb03';
                 break;
         }
-    }
-
-    drawBox(boxCoord1, boxCoord2, boxColor){
-        this.ctx.fillStyle = boxColor;
-        this.gridRectList.forEach((rect) =>{
-            if (rect.gridX == boxCoord1 && rect.gridY == boxCoord2){
-                this.ctx.fillRect(rect.posX, rect.posY, rect.size, rect.size);
-            }
-        });
     }
 }

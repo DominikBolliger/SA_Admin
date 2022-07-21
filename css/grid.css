@@ -42,10 +42,16 @@
 
 .grid-item6 {
     grid-area: Canvas1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .grid-item7 {
     grid-area: Canvas2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .grid-item8 {
